@@ -25,9 +25,11 @@ module.exports = {
     },
     seeds: {
       directory: path.join(__dirname, "src", "db", "seeds"),
+  
     },
     debug: !!DEBUG,
   },
+
   test: {
     client: "postgresql",
     pool: { min: 1, max: 5 },
@@ -40,6 +42,7 @@ module.exports = {
     },
     debug: !!DEBUG,
   },
+
   preview: {
     client: "postgresql",
     pool: { min: 1, max: 5 },
@@ -52,6 +55,7 @@ module.exports = {
     },
     debug: !!DEBUG,
   },
+
   production: {
     client: "postgresql",
     pool: { min: 1, max: 5 },

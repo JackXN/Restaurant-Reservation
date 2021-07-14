@@ -1,16 +1,11 @@
 const reservationsService = require('./reservations.service');
+const asyncErrorBoundary = require('../errors/asyncErrorBoundary')
 
+	// #region ============= Primary =========================
+/**
+ * List handler for reservation resources
+ * @returns {Array of Objects} All reservations from table
 
-
-
-
-
-async function list(req, res,next) {
-  reservationsService
-  .list()
-  .then((data) => res.json({ data }))
-  .catch(next)
-}
 
 module.exports = {
   list,

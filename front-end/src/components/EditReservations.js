@@ -53,11 +53,25 @@ function EditReservations() {
             return () => abortController.abort();
         }
 
-        
-    }
+        function handleChange({ target }) {
+            let newValue = target.value;
+            if (target.name === "people") {
+              newValue = Number(target.value);
+            }
+            setReservation((previousReservation) => ({
+              ...previousReservation,
+              [target.name]: newValue,
+            }));
+          }
+
+
     return (
         <div>
-            
+            <h1 className='text-center'>Edit Reservation</h1>
+            <form onSubmit={handleSubmit}>
+
+
+            </form>
         </div>
     )
 }

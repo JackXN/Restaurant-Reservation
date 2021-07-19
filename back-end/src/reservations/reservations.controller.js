@@ -186,8 +186,6 @@
    next();
  }
  
-
- 
  function hasBookedStatus(req, res, next) {
    const { status } = req.body.data;
    if (status === "seated" || status === "finished") {

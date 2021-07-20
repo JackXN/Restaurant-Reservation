@@ -3,7 +3,6 @@ import {
   readReservation,
   listTables,
   setReservationToTable,
-  updateStatus,
 } from "../utils/api";
 import { useParams, useHistory } from "react-router-dom";
 import ErrorAlert from "../layout/ErrorAlert";
@@ -126,3 +125,5 @@ function AssignSeats() {
     </main>
   );
 }
+
+export default AssignSeats;

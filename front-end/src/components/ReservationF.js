@@ -78,10 +78,14 @@ function ReservationForm({initialFormData}) {
 }
 
 
-function badTime() {
+const badTime = () =>  {
     setError({
       message:
         "Please enter a valid time. (We reserve tables from 10:30AM to 9:30PM.)",
     });
 }
 export default ReservationForm
+
+
+
+

@@ -8,6 +8,7 @@
     "url": "https://github.com/Thinkful-Ed/starter-restaurant-reservation"
   },
   "scripts": {
+    "dimple": "serve:prod",
     "build": "npm -prefix front-end run build",
     "preinstall": "cd ./back-end && npm install",
     "install": "cd ./front-end && npm install",

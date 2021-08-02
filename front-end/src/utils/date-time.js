@@ -12,7 +12,7 @@ const timeFormat = /\d\d:\d\d/;
  * @returns {string}
  *  the specified Date formatted as YYYY-MM-DD
  */
-function asDateString(date) {
+export function asDateString(date) {
   return `${date.getFullYear().toString(10)}-${(date.getMonth() + 1)
     .toString(10)
     .padStart(2, "0")}-${date.getDate().toString(10).padStart(2, "0")}`;
@@ -79,4 +79,10 @@ export function next(currentDate) {
   date.setMonth(date.getMonth());
   date.setDate(date.getDate() + 1);
   return asDateString(date);
+}
+
+
+export function formatDate(date) {
+  //returns mm/dd/yyyy from yyyy/mm/dd
+  return `${date[5]}${date[6]}-${date[8]}${date[9]}-${date[0]}${date[1]}${date[2]}${date[3]}`;
 }

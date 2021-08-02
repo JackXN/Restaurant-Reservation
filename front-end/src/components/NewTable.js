@@ -1,90 +1,91 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { createTable } from "../utils/api";
+import { useHistory } from "react-router-dom";
 import ErrorAlert from "../layout/ErrorAlert";
 
 function NewTable() {
-  const history = useHistory();
-  const abortController = new AbortController();
-
-  const initialState = {
+  const initialFormData = {
     table_name: "",
     capacity: "",
   };
 
-  const [table, setTable] = useState({ ...initialState });
+  const [newTable, setNewTable] = useState({ ...initialFormData });
   const [error, setError] = useState(null);
+  const history = useHistory();
 
-  const handleChange = ({ target }) => {
-    setTable({ ...table, [target.name]: target.value });
-    console.log(table);
-  };
+  function handleChange({ target: { name, value } }) {
+    setNewTable({ ...newTable, [name]: value });
+    if (newTable.table_name.length >= 1) {
+      setError(null);
+    }
+  }
 
-  const handleSubmit = (event) => {
+  function handleSubmit(event) {
     event.preventDefault();
 
-    async function updateData() {
-      try {
-        await createTable(table, abortController.signal);
-        history.push("/dashboard");
-      } catch (error) {
-        if (error.name === "AbortError") {
-          console.log("Aborted");
-        } else {
-          setError(error);
-        }
-      }
+    if (newTable.table_name.length <= 1) {
+      setError({ message: "Table needs a name with more than one character" });
+    } else {
+      setError(null);
+      createTable(newTable)
+        .then(setNewTable({ ...initialFormData }))
+        .then(history.push("/dashboard"))
+        .catch(setError);
     }
-    updateData();
-    return () => abortController.abort();
-  };
+  }
 
+  function handleCancel(event) {
+    event.preventDefault();
+    history.goBack();
+  }
   return (
-    <div>
-      <ErrorAlert error={error} />
-      <h1 className="text-center display-4">Create New Table</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-row">
-          <div className="form-group col-md-6">
-            <label htmlFor="table_name">Table Name:</label>
-            <input
-              type="text"
-              className="form-control"
-              id="table_name"
-              name="table_name"
-              onChange={handleChange}
-              value={table.table_name}
-              required={true}
-            />
+    <div className="row">
+      <div style={{margin:"20px 0 0 30px"}}>
+        <h1>New Table</h1>
+        <ErrorAlert error={error} />
+        <div className="col">
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col">
+              <label>
+                <h5>Name</h5>
+                <input
+                  onChange={handleChange}
+                  name="table_name"
+                  type="text"
+                  value={newTable.table_name}
+                  required={true}
+                />
+              </label>
+            </div>
+            <div className="col">
+              <label>
+                <h5>Capacity</h5>
+                <input
+                  onChange={handleChange}
+                  name="capacity"
+                  type="text"
+                  value={newTable.capacity}
+                  required={true}
+                />
+              </label>
+            </div>
           </div>
-          <div className="form-group col-md-6">
-            <label htmlFor="capacity">Capacity:</label>
-            <input
-              type="number"
-              className="form-control"
-              id="capacity"
-              name="capacity"
-              onChange={handleChange}
-              value={table.capacity}
-              required={true}
-            />
-          </div>
-        </div>
-        <div className="text-center">
+
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
           <button
-            className=" mx-2 btn btn-dark"
-            onClick={() => history.goBack()}
+            type="cancel"
+            className="btn btn-warning"
+            onClick={handleCancel}
           >
             Cancel
           </button>
-          <button
-            className="mx-2 border border-dark btn btn-light"
-            type="submit"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
+      </div>
+       
     </div>
   );
 }

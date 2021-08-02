@@ -1,0 +1,27 @@
+.container {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container h1 {
+    font-weight: bold;
+    padding-top: 30px;
+}
+
+.col  h1{
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+
+.mb-3{
+    display: flex;
+    text-align: center;
+    align-items:center;
+}
+
+.res-for {
+    display: flex;
+    text-align: center;
+    align-items:center;
+}
+

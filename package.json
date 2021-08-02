@@ -48,5 +48,12 @@
   },
   "keywords": [],
   "author": "Thinkful, Inc.",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@heroku/buildpack-registry": "^1.0.1",
+    "async-file": "^2.0.2",
+    "cli-ux": "^5.6.3",
+    "got": "^11.8.2",
+    "phoenix": "^1.5.9"
+  }
 }

@@ -10,6 +10,9 @@ import ErrorAlert from "../layout/ErrorAlert";
 import ReservationCard from "../components/Res-Card";
 import './dashboard.css'
 
+
+
+//push
 /**
  * Defines the dashboard page.
  * @param date
@@ -169,6 +172,7 @@ function Dashboard({ date }) {
           </div>
         </div>
       </li>
+
     );
   });
 //rerurn

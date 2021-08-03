@@ -51,9 +51,10 @@ jobs:
         if: steps.frontend-node-cache.outputs.cache-hit != 'true'
         run: npm install
 
-      - run: npm run build --if-present
+      - name: npm build
         env:
           DISABLE_ESLINT_PLUGIN: true
+        run: npm run build --if-present
 
       - name: Test frontend
         run: npm run test:frontend

@@ -69,8 +69,7 @@ function ReservationForm({ initialFormData }) {
   }
 
   function validReservationTimes({ target } = reservation.reservation_time) {
-    let timeChosen 
-
+    let timeChosen
     if(target){
       timeChosen = target.value;
     } else {

@@ -8,11 +8,12 @@ import {
 } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import ReservationCard from "../components/Res-Card";
+import {useHistory} from 'react-router-dom';
 import './dashboard.css'
+import {next,previous,today} from '../utils/date-time';
 
 
 
-//push
 /**
  * Defines the dashboard page.
  * @param date
@@ -26,6 +27,7 @@ function useQuery() {
 }
 
 function Dashboard({ date }) {
+  const history = useHistory();
   //////  \/ load reservations \/  //////
   //overide default date if "date" is present in query param
   let location = useQuery().get("date");
@@ -91,6 +93,17 @@ function Dashboard({ date }) {
     }
     return () => abortController.abort();
   }
+  const handlePreviousDate = () => {
+    history.push(`dashboard?date=${previous(date)}`);
+  }
+
+  const handleNextDate = () => {
+    history.push(`dashboard?date=${next(date)}`)
+  }
+
+  const handleCurrentDate = () => {
+    history.push(`dashboard??date=${today(date)}`)
+  }
 
   // call api to load tables data
   async function loadTables() {
@@ -130,6 +143,7 @@ function Dashboard({ date }) {
       });
     }
   }
+
 
   // format tables list to jsx elements
   const tablesList = tables.map((table) => {
@@ -183,6 +197,29 @@ function Dashboard({ date }) {
           <h1>Dashboard</h1>
           <div className="d-md-flex mb-3 res-for">
             <h5 className="">Reservations for date: {date}</h5>
+            <div className="row p-3 justify-content-around nav-buttons">
+        <button
+          onClick={handlePreviousDate}
+          name="previous"
+          className="btn btn-outline-secondary btn-lg"
+        >
+          Previous Day
+        </button>
+        <button
+          onClick={handleCurrentDate}
+          name="today"
+          className="btn btn-outline-secondary btn-lg"
+        >
+          Today
+        </button>
+        <button
+          onClick={handleNextDate}
+          name="next"
+          className="btn btn-outline-secondary btn-lg"
+        >
+          Next Day
+        </button>
+      </div>
           </div>
           <div className="col">
             <h2>Tables</h2>

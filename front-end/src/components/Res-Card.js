@@ -1,41 +1,141 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import "./res-card.css";
 
-//change each reservation to be it's own card
 
-function DisplayReservations({ reservations }) {
-  const reservationCards = reservations.map((res) => (
-    <div className="my-2 card border border-dark" key={res.reservation_id}>
-      <div className="card-body">
-        <h5 className="card-title text-center">Reservation Info:</h5>
-        <p className="card-text">
-          {res.first_name} {res.last_name}
-        </p>
-        <p className="card-text">Mobile: {res.mobile_number}</p>
-        <p className="card-text">Date: {res.reservation_date}</p>
-        <p className="card-text">Time: {res.reservation_time}</p>
-        <p className="card-text">Party Size: {res.people}</p>
-        <Link to={`/reservations/${res.reservation_id}/seat`}>
-          <button className="mx-2 border border-dark btn btn-light">
-            Seat
-          </button>
-        </Link>
-        <Link to={`reservations/${res.reservation_id}/edit`}>
-          <button className=" mx-2 border border-dark btn btn-light">
-            Edit
-          </button>
-        </Link>
-        <button
-          data-reservation-id-cancel={res.reservation_id}
-          className=" mx-2 btn btn-dark"
+
+
+
+function ReservationCard({ reservations, setCancelled }) {
+  
+  const [reservationElements, setReservationElements] = useState([]);
+  const { pathname } = useLocation();
+
+  const isSearch = pathname.includes("search")
+
+  //implement into dashboard
+  useEffect(() => {
+    setReservationElements(formatElements(reservations));
+  function formatElements(reservations) {
+    
+    const formattedReservationElements = reservations.map((reservation) => {
+      const {
+        status,
+        reservation_id,
+        reservation_time,
+        reservation_date,
+        first_name,
+        last_name,
+        people,
+        created_at,
+        mobile_number,
+      } = reservation;
+
+      // reservations can only be canceled, seated, or edited if they have status "booked"
+      const booked = status === "booked";
+      const buttons = (
+        <div className="row justify-content-end" >
+          <div>
+            <a
+              className="btn btn-outline-warning"
+              href={`/reservations/${reservation_id}/edit`}
+              role="button"
+            >
+              edit
+            </a>
+          </div>
+          <div>
+            {}
+            <button
+              className="btn btn-outline-danger"
+              onClick={cancelBtnHandler}
+              data-reservation-id-cancel={reservation.reservation_id}
+            >
+              cancel
+            </button>
+          </div>
+          <a
+            href={`/reservations/${reservation_id}/seat`}
+            role="button"
+            className="btn btn-outline-primary"
+          >
+            seat
+          </a>
+        </div>
+      );
+
+      const reservationElement = (
+        <div
+          className="card"
+          key={reservation_id}
+          style={{ marginBottom: "5px" }}
         >
-          Cancel
-        </button>
-      </div>
-    </div>
-  ));
+          <div className="row justify-content-between">
+            <h3>
+              {last_name}, {first_name}
+            </h3>
+            <div>
+              <span
+                className="badge bg-primary"
+                data-reservation-id-status={reservation.reservation_id}
+              >
+                {status}
+              </span>
+            </div>
+          </div>
 
-  return <div>{reservationCards}</div>;
+          <div className="row">
+            <div className="col">
+              <h5>Mobile Number</h5>
+              <p>{mobile_number}</p>
+            </div>
+            <div className="col">
+              <h5>Date and Time:</h5>
+              <p>
+                {reservation_date}, {reservation_time}
+              </p>
+            </div>
+            <div className="col">
+              <h5>Party Size:</h5>
+              <p>{people}</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="row align-items-end">
+              <p className="col-5 " style={{ marginLeft: "20px" }}>
+                Created at: {created_at}
+              </p>
+              <p className="col">Reservation ID: {reservation_id}</p>
+            </div>
+            <div className="col">{booked && !isSearch ? buttons : null}</div>
+          </div>
+        </div>
+      );
+      if (status !== "cancelled") {
+        return reservationElement;
+      }
+    });
+    return formattedReservationElements;
+  }
+  }, [reservations]);
+
+
+
+
+  function cancelBtnHandler({ target }) {
+    if (
+      window.confirm(
+        "Do you want to cancel this reservation? This cannot be undone."
+      )
+    ) {
+      setCancelled(
+        (cancelled) => (cancelled = target.dataset.reservationIdCancel)
+      );
+    }
+  }
+
+
+  return reservationElements;
 }
 
-export default DisplayReservations;
+export default ReservationCard;

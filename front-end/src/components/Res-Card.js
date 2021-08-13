@@ -5,9 +5,7 @@ import "./res-card.css";
 
 
 
-
 function ReservationCard({ reservations, setCancelled }) {
-  
   const [reservationElements, setReservationElements] = useState([]);
   const { pathname } = useLocation();
 
@@ -16,8 +14,21 @@ function ReservationCard({ reservations, setCancelled }) {
   //implement into dashboard
   useEffect(() => {
     setReservationElements(formatElements(reservations));
+  }, [reservations]);
+
+  function cancelBtnHandler({ target }) {
+    if (
+      window.confirm(
+        "Do you want to cancel this reservation? This cannot be undone."
+      )
+    ) {
+      setCancelled(
+        (cancelled) => (cancelled = target.dataset.reservationIdCancel)
+      );
+    }
+  }
+
   function formatElements(reservations) {
-    
     const formattedReservationElements = reservations.map((reservation) => {
       const {
         status,
@@ -117,23 +128,6 @@ function ReservationCard({ reservations, setCancelled }) {
     });
     return formattedReservationElements;
   }
-  }, [reservations]);
-
-
-
-
-  function cancelBtnHandler({ target }) {
-    if (
-      window.confirm(
-        "Do you want to cancel this reservation? This cannot be undone."
-      )
-    ) {
-      setCancelled(
-        (cancelled) => (cancelled = target.dataset.reservationIdCancel)
-      );
-    }
-  }
-
 
   return reservationElements;
 }

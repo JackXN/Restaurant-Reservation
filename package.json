@@ -44,7 +44,8 @@
     "test:8:frontend": "npm run test:8 --prefix ./front-end",
     "test:8:backend": "npm run test:8 --prefix ./back-end",
     "test:e2e": "npm run test:e2e --prefix ./front-end",
-    "test:frontend:watch": "npm test --prefix ./front-end"
+    "test:frontend:watch": "npm test --prefix ./front-end",
+    "lint": "eslint src/**/*.js src/**/*.jsx"
   },
   "keywords": [],
   "author": "Thinkful, Inc.",
@@ -55,5 +56,13 @@
     "cli-ux": "^5.6.3",
     "got": "^11.8.2",
     "phoenix": "^1.5.9"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0"
   }
 }

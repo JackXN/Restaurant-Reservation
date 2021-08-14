@@ -25,6 +25,7 @@ function ReservationForm({ initialFormData }) {
         reservation_date: asDateString(dateChosen),
       });
     }
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialFormData]);
 
   function validReservationDates({ target }) {
@@ -143,6 +144,7 @@ function ReservationForm({ initialFormData }) {
       changeStatusCancel(cancelled);
       navigateToDashboard();
     }
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cancelled]);
 
   // call api to cancel reservation

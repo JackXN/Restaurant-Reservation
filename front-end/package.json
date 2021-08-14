@@ -38,7 +38,8 @@
     "test:e2e:run": "wait-on http://localhost:5000/reservations?date=2020-01-01 && jest --detectOpenHandles --forceExit --config  ./e2e/jest.config.js --silent",
     "test:start:backend": "npm run test:start --prefix ./../back-end",
     "test:start:frontend": "npx cross-env BROWSER=none NODE_ENV=test react-scripts start",
-    "test:unit": "react-scripts test"
+    "test:unit": "react-scripts test",
+    "lint": "eslint src/**/*.js src/**/*.jsx"
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +61,7 @@
   },
   "devDependencies": {
     "cross-fetch": "^3.0.6",
+    "eslint-plugin-react": "^7.24.0",
     "jest-puppeteer": "^4.4.0",
     "npm-run-all": "^4.1.5",
     "puppeteer": "^5.5.0"

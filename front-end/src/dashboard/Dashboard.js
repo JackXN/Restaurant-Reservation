@@ -53,12 +53,13 @@ function Dashboard({ date }) {
     if (cancelled) {
       changeStatusCancel(cancelled);
     }
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date, cancelled, finishIds]);
 
   useEffect(() => {
     if(tablesLoaded){
       loadReservations();
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tablesLoaded]);
   // call api to cancel reservation
   async function changeStatusCancel(cancelledReservation) {

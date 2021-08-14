@@ -14,6 +14,7 @@ function ReservationCard({ reservations, setCancelled }) {
   //implement into dashboard
   useEffect(() => {
     setReservationElements(formatElements(reservations));
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reservations]);
 
   function cancelBtnHandler({ target }) {
@@ -29,6 +30,8 @@ function ReservationCard({ reservations, setCancelled }) {
   }
 
   function formatElements(reservations) {
+
+    // eslint-disable-next-line
     const formattedReservationElements = reservations.map((reservation) => {
       const {
         status,

@@ -43,6 +43,7 @@ function SeatReservation() {
   // \/Load reservation\/ \\
   useEffect(() => {
     loadReservationData();
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [reservation, setReservation] = useState("");

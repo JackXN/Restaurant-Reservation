@@ -13,6 +13,7 @@ function Search() {
   const [clicked, setClicked] = useState(0)
   useEffect(() => {
     loadReservations();
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mobile_number, clicked]);
 
   async function loadReservations() {
@@ -91,7 +92,7 @@ function Search() {
               </label>
             </div>
             <div className="col">
-              <button type="submit" role="button" onClick={()=>{setClicked(clicked + 1)}} className="btn btn-primary">
+              <button type="submit" onClick={()=>{setClicked(clicked + 1)}} className="btn btn-primary">
                 Find
               </button>
             </div>

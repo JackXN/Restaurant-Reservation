@@ -22,7 +22,7 @@ Clicking new reservation in the menu on the left or top of the screen will navig
 
 Upon submitting a reservation the dashboard will display the reservations for the date of reservation last created. Reservations have a status that defaults to "booked" which allows the user to edit, seat, or cancel a reservation.
 
-![created](./images/created.png)
+![created](./front-end/.screenshots/us-01-submit-after.png)
 
 <hr>
 

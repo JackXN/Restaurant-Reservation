@@ -2,3 +2,8 @@
   background-color: #393a44;
   min-width: 200px;
 }
+
+form input {
+  border: solid white 1px;
+
+}
